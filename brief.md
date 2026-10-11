@@ -44,8 +44,10 @@ lighter is better.
   cycle is a fraction of a second, too fast for a pilot, and a statically stable flying wing damps it heavily
   anyway. Dutch roll: may grow, time to double at least 4 s (`dr_tdouble`), as the spiral; its cycle is a couple
   of seconds and a pilot calms a slow growth with the elevons; requiring damping could be hard without a fin.
-  Interviewer's recommendation, accepted. Phugoid: damping not required; time to double still to agree
-  (`ph_tdouble`). The human's rule: no stand-in requirement; no design work until it is agreed.
+  Interviewer's recommendation, accepted. Phugoid: may grow, time to double at least 8 s (`ph_tdouble`): its
+  cycle is about 4 s at these speeds, so it doubles over two swings, easy for a pilot who corrects pitch anyway;
+  more lenient than the Dutch roll because the solver reads gliders' phugoid damping low. Interviewer's
+  recommendation, accepted.
 - "Re floor 60,000, or at most 55,000": `re_min` over the trim line down to the minimum speed, every strip
   (flow5's air, nu 1.5e-5). 55,000 is a must, 60,000 a want: the first thing to give, per the priorities.
 - "Landing / minimum speed 6.5 m/s": `speed_min`, the trim-line speed at the first section's stall onset. It is
@@ -111,6 +113,11 @@ why = "must not grow: too fast for a pilot"
 metric = "dr_tdouble"
 min = 4
 why = "may grow, slowly enough for a pilot to calm it"
+
+[[require]]
+metric = "ph_tdouble"
+min = 8
+why = "may grow over two swings; a pilot corrects pitch anyway"
 
 [[require]]
 metric = "spiral_tdouble"
