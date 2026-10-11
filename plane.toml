@@ -1,11 +1,11 @@
 # Bell-span-load flying wing, Prandtl-D-like: swept, tapered, bell twist, no vertical surfaces, dihedral 0.
-name = "petrel"
-description = "Petrel: finless swept (22 deg) bell-load flying wing, 1.7 m, E387 root to S5020 outboard, elevons eta 0.8-1."
+name = "shearwater"
+description = "Shearwater: finless swept (22 deg) bell-load flying wing, 1.7 m, chord 0.25 to 0.16 m, 0.2 kg battery, E387 root to S5020 outboard, elevons eta 0.8-1."
 
 [wing]
 foil = ["Root", "Root", "Root", "Root", "Mid", "Elevon", "Elevon", "Elevon"]
 y     = [0.0,  0.15,  0.30,  0.45,  0.60,  0.68,  0.76,  0.85]
-chord = [0.25, 0.2376, 0.2253, 0.2129, 0.2006, 0.194, 0.1874, 0.18]
+chord = [0.25, 0.2341, 0.2182, 0.2023, 0.1865, 0.1780, 0.1695, 0.16]
 sweep = 22.0
 twist = { spanload = { target = "bell", cl = 0.42 } }
 dihedral = 0.0
@@ -13,8 +13,8 @@ structure_density = 87.0
 
 [[masses]]
 tag = "battery"
-mass = 0.08
-x = -0.08
+mass = 0.20
+x = 0.12
 
 [[masses]]
 tag = "motor+prop"
