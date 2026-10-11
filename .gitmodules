@@ -1,0 +1,3 @@
+[submodule "uav"]
+	path = uav
+	url = git@github.com:eccentricexit/uav.git
