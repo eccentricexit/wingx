@@ -13,11 +13,12 @@ The three that matter most, last to give: **proverse yaw** from the elevons, **r
 
 Before any of those gives, the designers use every free choice: planform, sweep, taper, aspect ratio, twist,
 airfoils, thickness, a yehudi or bat tail (via per-section chord and offset), battery mass and position, mass in
-general. Then, in order: the Reynolds floor from 60k down to 55k; then the wants. Span beyond 1.9 m or mass beyond
+general. Then, in order: the Reynolds floor from 60k down to 55k; then the wants. Span beyond 1.8 m or mass beyond
 1.8 kg: ask the human.
 
 Wants, reported but negotiable: elevons near neutral at 9 m/s; glide ratio (no target, as high as possible);
-lighter is better.
+lighter is better; the smallest span that meets the musts. The 1.8 m ceiling is a limit, not a target: start
+at 1.5 m and add span only when a must fails without it.
 
 ## Design rules (not checkable; designers hold to them)
 
@@ -58,7 +59,7 @@ lighter is better.
 ```toml brief
 [plane]
 mass_max = 1.8
-span = [1.5, 1.9]
+span = [1.5, 1.8]
 
 [conditions]
 trim_surface = "pitch"
@@ -123,6 +124,12 @@ why = "may grow over two swings; a pilot corrects pitch anyway"
 metric = "spiral_tdouble"
 min = 4
 why = "a divergence slow enough for a pilot to correct"
+
+[[require]]
+metric = "span"
+max = 1.5
+priority = "want"
+why = "smallest span that works; the 1.8 m ceiling is a limit, not a target"
 
 [[require]]
 metric = "trim_deflection"
