@@ -51,6 +51,10 @@ attempt starts at 1.7 m (the human's call: lower spans look unpromising), then m
   recommendation, accepted.
 - "Re floor 60,000, or at most 55,000": `re_min` over the trim line down to the minimum speed, every strip
   (flow5's air, nu 1.5e-5). 55,000 is a must, 60,000 a want: the first thing to give, per the priorities.
+- "Root stalls before the tips" must survive a ±0.05 error in the sections' Cl max, the adversarial pair shift
+  included (root +0.05, tip −0.05), on the wake aligned with the free stream: inside XFoil's known Cl-max error
+  (0.02 to 0.07 on the E387). Interviewer's recommendation, accepted. The brief block cannot express it yet
+  (uav#113); designers verify it with `f5 envelope --wake aligned --limit-shift 0.05` and report it.
 - "Landing / minimum speed 6.5 m/s": `speed_min`, the trim-line speed at the first section's stall onset. It is
   conservative; the plane flies somewhat slower before it actually stalls.
 - "Roughly cruises without trim": elevons within ±1° at 9 m/s, a want. 9 m/s is a reference speed, not a cruise
