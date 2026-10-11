@@ -17,8 +17,8 @@ general. Then, in order: the Reynolds floor from 60k down to 55k; then the wants
 1.8 kg: ask the human.
 
 Wants, reported but negotiable: elevons near neutral at 9 m/s; glide ratio (no target, as high as possible);
-lighter is better; the smallest span that meets the musts. The 1.8 m ceiling is a limit, not a target: start
-at 1.5 m and add span only when a must fails without it.
+lighter is better; the smallest span that meets the musts. The 1.8 m ceiling is a limit, not a target. First
+attempt starts at 1.7 m (the human's call: lower spans look unpromising), then moves either way as the checks say.
 
 ## Design rules (not checkable; designers hold to them)
 
