@@ -1,0 +1,70 @@
+# Bell-span-load flying wing, Prandtl-D-like: swept, tapered, bell twist, no vertical surfaces, dihedral 0.
+name = "wingx"
+description = "Finless swept (22 deg) bell-load flying wing, 1.7 m, E387 root to S5020 outboard, elevons eta 0.8-1."
+
+[wing]
+foil = ["Root", "Root", "Root", "Root", "Mid", "Elevon", "Elevon", "Elevon"]
+y     = [0.0,  0.15,  0.30,  0.45,  0.60,  0.68,  0.76,  0.85]
+chord = [0.25, 0.2376, 0.2253, 0.2129, 0.2006, 0.194, 0.1874, 0.18]
+sweep = 22.0
+twist = { spanload = { target = "bell", cl = 0.42 } }
+dihedral = 0.0
+structure_density = 87.0
+
+[[masses]]
+tag = "battery"
+mass = 0.08
+x = -0.08
+
+[[masses]]
+tag = "motor+prop"
+mass = 0.07
+x = 0.25
+
+[[masses]]
+tag = "esc"
+mass = 0.03
+x = 0.16
+
+[[masses]]
+tag = "receiver"
+mass = 0.01
+x = 0.10
+
+[[masses]]
+tag = "servo_left"
+mass = 0.009
+position = [0.37, -0.72, 0.0]
+
+[[masses]]
+tag = "servo_right"
+mass = 0.009
+position = [0.37, 0.72, 0.0]
+
+[[masses]]
+tag = "spar"
+mass = 0.03
+x = 0.23
+
+[foils.Mid]
+dat = "foils/s5020.dat"
+
+[foils.Root]
+dat = "foils/e387.dat"
+
+[foils.Elevon]
+dat = "foils/s5020.dat"
+flap = [0.75, 0.0, 0.0]
+
+[[surface]]
+name = "pitch"
+wing = "MAINWING"
+flaps = "all"
+max = 20
+
+[[surface]]
+name = "roll"
+wing = "MAINWING"
+flaps = "all"
+antisymmetric = true
+max = 20
