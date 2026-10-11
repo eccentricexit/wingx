@@ -1,6 +1,6 @@
 # Bell-span-load flying wing, Prandtl-D-like: swept, tapered, bell twist, no vertical surfaces, dihedral 0.
-name = "wingx"
-description = "Finless swept (22 deg) bell-load flying wing, 1.7 m, E387 root to S5020 outboard, elevons eta 0.8-1."
+name = "petrel"
+description = "Petrel: finless swept (22 deg) bell-load flying wing, 1.7 m, E387 root to S5020 outboard, elevons eta 0.8-1."
 
 [wing]
 foil = ["Root", "Root", "Root", "Root", "Mid", "Elevon", "Elevon", "Elevon"]
