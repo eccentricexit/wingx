@@ -1,20 +1,20 @@
 # Bell-span-load flying wing, Prandtl-D-like: swept, tapered, bell twist, no vertical surfaces, dihedral 0.
-name = "fulmar"
-description = "Fulmar: finless swept (22 deg) bell-load flying wing, 1.7 m, chord 0.25 to 0.16 m, bell cl 0.60, 0.2 kg battery, E387 root to S5020 outboard, elevons eta 0.8-1."
+name = "prion"
+description = "Prion: finless swept (22 deg) bell-load flying wing, 1.7 m, chord 0.25 to 0.16 m, bell cl 0.44, 0.2 kg battery, E178 root (to y 0.30) then S5020, elevons eta 0.8-1."
 
 [wing]
-foil = ["Root", "Root", "Root", "Root", "Mid", "Elevon", "Elevon", "Elevon"]
+foil = ["Root", "Root", "Root", "Mid", "Mid", "Elevon", "Elevon", "Elevon"]
 y     = [0.0,  0.15,  0.30,  0.45,  0.60,  0.68,  0.76,  0.85]
 chord = [0.25, 0.2341, 0.2182, 0.2023, 0.1865, 0.1780, 0.1695, 0.16]
 sweep = 22.0
-twist = { spanload = { target = "bell", cl = 0.60 } }
+twist = { spanload = { target = "bell", cl = 0.44 } }
 dihedral = 0.0
 structure_density = 87.0
 
 [[masses]]
 tag = "battery"
 mass = 0.20
-x = 0.095
+x = 0.071
 
 [[masses]]
 tag = "motor+prop"
@@ -50,7 +50,7 @@ x = 0.23
 dat = "foils/s5020.dat"
 
 [foils.Root]
-dat = "foils/e387.dat"
+dat = "foils/e178.dat"
 
 [foils.Elevon]
 dat = "foils/s5020.dat"
