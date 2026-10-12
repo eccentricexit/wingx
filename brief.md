@@ -59,6 +59,11 @@ attempt starts at 1.7 m (the human's call: lower spans look unpromising), then m
   (`rollin_sideslip`, airfoil drag included; its note brackets flow5's Cnp underestimate). A want for now: the
   3° is a first guess; once Prion and the next variant give a baseline, the human sets the threshold and it
   becomes a must. The static `proverse_yaw` row stays as a must.
+  Baseline (2026-10-12): Prion reads 27° (27–32° over the Cnp bracket) on this input, reaching 30° in 1.84 s, so
+  3° is the wrong scale for a finless wing on a brisk held step, and the linear model is far outside its range at
+  that size. The human delegated the recalibration to the interviewer (autonomous iteration): the row is used
+  comparatively (lower is better) until a diagnostic shows which levers move it; then input and threshold are
+  reset here with their basis.
 - "Landing / minimum speed 6.5 m/s": `speed_min`, the trim-line speed at the first section's stall onset. It is
   conservative; the plane flies somewhat slower before it actually stalls.
 - "Roughly cruises without trim": elevons within ±1° at 9 m/s, a want. 9 m/s is a reference speed, not a cruise
