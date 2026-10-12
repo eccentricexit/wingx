@@ -55,6 +55,10 @@ attempt starts at 1.7 m (the human's call: lower spans look unpromising), then m
   included (root +0.05, tip −0.05), on the wake aligned with the free stream: inside XFoil's known Cl-max error
   (0.02 to 0.07 on the E387). Interviewer's recommendation, accepted. The brief block cannot express it yet
   (uav#113); designers verify it with `f5 envelope --wake aligned --limit-shift 0.05` and report it.
+- "Proverse yaw" in practice: a roll from the trim to 30° of bank on a 10° elevon step, peak sideslip at most 3°
+  (`rollin_sideslip`, airfoil drag included; its note brackets flow5's Cnp underestimate). A want for now: the
+  3° is a first guess; once Prion and the next variant give a baseline, the human sets the threshold and it
+  becomes a must. The static `proverse_yaw` row stays as a must.
 - "Landing / minimum speed 6.5 m/s": `speed_min`, the trim-line speed at the first section's stall onset. It is
   conservative; the plane flies somewhat slower before it actually stalls.
 - "Roughly cruises without trim": elevons within ±1° at 9 m/s, a want. 9 m/s is a reference speed, not a cruise
@@ -128,6 +132,14 @@ why = "may grow over two swings; a pilot corrects pitch anyway"
 metric = "spiral_tdouble"
 min = 4
 why = "a divergence slow enough for a pilot to correct"
+
+[[require]]
+metric = "rollin_sideslip"
+bank = 30
+input = { type = "step", deflection = 10 }
+max = 3
+priority = "want"
+why = "rolls into a turn without the nose swinging out; want until a baseline sets the threshold"
 
 [[require]]
 metric = "span"
