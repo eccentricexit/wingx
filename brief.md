@@ -16,7 +16,7 @@ airfoils, thickness, a yehudi or bat tail (via per-section chord and offset), ba
 general. Then, in order: the Reynolds floor from 60k down to 55k; then the wants. Span beyond 1.8 m or mass beyond
 1.8 kg: ask the human.
 
-Wants, reported but negotiable: elevons near neutral at 9 m/s; glide ratio (no target, as high as possible);
+Wants, reported but negotiable: elevons near neutral at 9 m/s; glide ratio at least 15 (above it as high as possible; glide above 15 may be spent on proverse yaw, roll-in and stall robustness, below 15 ask the human);
 lighter is better; the smallest span that meets the musts. The 1.8 m ceiling is a limit, not a target. First
 attempt starts at 1.7 m (the human's call: lower spans look unpromising), then moves either way as the checks say.
 
@@ -161,7 +161,7 @@ why = "roughly cruises without trim at 9 m/s"
 
 [[require]]
 metric = "glide_ratio"
-min = 0.0
+min = 15.0
 priority = "want"
-why = "reported only: as high as possible"
+why = "floor 15; above it as high as possible, a tie-breaker that may be spent on yaw, roll-in and stall robustness"
 ```
