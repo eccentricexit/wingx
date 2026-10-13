@@ -3,26 +3,25 @@
 ## Purpose
 
 A finless flying wing in the spirit of NASA's Prandtl-D: a bell-shaped span load for proverse yaw without a fin,
-and as good a glide as the rest allows. 3D printed in LW-PLA, pusher prop on a BLDC motor (not modelled; only its
-mass is placed). Conception stage: no parts chosen yet.
+nice handling, and as good a glide as the rest allows. 3D printed in LW-PLA, pusher prop on a BLDC motor (not
+modelled; only its mass is placed). Conception stage: no parts chosen yet.
 
 ## Priorities
 
 The three that matter most, last to give: **proverse yaw** from the elevons, **root stalls before the tips**, and a
 **minimum speed of 6.5 m/s or lower**. If one of them must give, ask the human; they have not ordered them.
 
-Before any of those gives, the designers use every free choice: planform, sweep, taper, aspect ratio, twist,
-airfoils, thickness, a yehudi or bat tail (via per-section chord and offset), battery mass and position, mass in
-general. Then, in order: the Reynolds floor from 60k down to 55k; then the wants. Span beyond 1.8 m or mass beyond
-1.8 kg: ask the human.
+**Handling** comes next: turns entered without a large adverse skid, especially slow (landing pattern), measured by
+`rollin_sideslip`. It ranks above glide.
 
-Handling (the human, 2026-10-12): "we want nice behaviour/handling": turns entered without a large adverse
-skid, especially slow (landing pattern). Measured by `rollin_sideslip` (comparative until recalibrated); it ranks
-above glide, which may be spent on it down to the floor.
+Before any requirement gives, every free choice is used: planform, sweep, taper, aspect ratio, twist, airfoils,
+thickness, a yehudi or bat tail (per-section chord and offset), battery mass and position. Then, in order: the
+Reynolds floor from 60k down to 55k; then the wants. Span beyond 1.8 m or mass beyond 1.8 kg: ask the human.
 
-Wants, reported but negotiable: elevons near neutral at 9 m/s; glide ratio at least 15 (above it as high as possible; glide above 15 may be spent on proverse yaw, roll-in and stall robustness, below 15 ask the human);
-lighter is better; the smallest span that meets the musts. The 1.8 m ceiling is a limit, not a target. First
-attempt starts at 1.7 m (the human's call: lower spans look unpromising), then moves either way as the checks say.
+Wants, reported and negotiable: glide ratio at least 15 (above it as high as possible; glide above 15 may be spent
+on proverse yaw, turn entry and stall robustness, below 15 ask the human); elevons near neutral at 9 m/s; lighter
+is better; the smallest span that meets the musts (1.8 m is a limit, not a target; spans below about 1.7 m looked
+unpromising to the human).
 
 ## Design rules (not checkable; designers hold to them)
 
@@ -34,47 +33,40 @@ attempt starts at 1.7 m (the human's call: lower spans look unpromising), then m
 ## Assumptions
 
 - Structure: printed LW-PLA, 87 kg/m3 of the wing's enclosed volume (`structure_density`); the human's
-  pessimistic figure, confirmed as mass over the volume inside the skin.
-- Battery: 0 to 0.4 kg, the designers' choice (no floor; flight time is not a requirement). Its position is free,
-  including forward of the root leading edge (on a nose or boom).
+  pessimistic figure, mass over the volume inside the skin.
+- Battery: 0 to 0.4 kg (no floor; flight time is not a requirement). Its position is free, including forward of the
+  root leading edge (on a nose or boom).
 - Motor and prop 0.07 kg at the root trailing edge (pusher); ESC 0.03 kg; receiver 0.01 kg; two 9 g servos at the
-  elevons; carbon spar 0.03 kg. Typical estimates, accepted by the human; no parts chosen yet.
-- Sea level, standard atmosphere. No fuselage or propulsion in the model.
+  elevons; carbon spar 0.03 kg. Typical estimates; no parts chosen yet.
+- Sea level, standard atmosphere (flow5's air: density 1.225, nu 1.5e-5). No fuselage or propulsion in the model.
 
 ## Interpretations
 
 - "Statically stable": static margin of at least 3% MAC, a small buffer above neutral.
-- "Not uncontrollable; damping nice but not required": spiral time to double at least 4 s if unstable. Short
-  period: must not grow (`sp_tdouble`, a stable mode reads inf), the interviewer's recommendation, accepted: its
-  cycle is a fraction of a second, too fast for a pilot, and a statically stable flying wing damps it heavily
-  anyway. Dutch roll: may grow, time to double at least 4 s (`dr_tdouble`), as the spiral; its cycle is a couple
-  of seconds and a pilot calms a slow growth with the elevons; requiring damping could be hard without a fin.
-  Interviewer's recommendation, accepted. Phugoid: may grow, time to double at least 8 s (`ph_tdouble`): its
-  cycle is about 4 s at these speeds, so it doubles over two swings, easy for a pilot who corrects pitch anyway;
-  more lenient than the Dutch roll because the solver reads gliders' phugoid damping low. Interviewer's
-  recommendation, accepted.
-- "Re floor 60,000, or at most 55,000": `re_min` over the trim line down to the minimum speed, every strip
-  (flow5's air, nu 1.5e-5). 55,000 is a must, 60,000 a want: the first thing to give, per the priorities.
-- "Root stalls before the tips" must survive a ±0.05 error in the sections' Cl max, the adversarial pair shift
-  included (root +0.05, tip −0.05), on the wake aligned with the free stream: inside XFoil's known Cl-max error
-  (0.02 to 0.07 on the E387). Interviewer's recommendation, accepted. The brief block cannot express it yet
-  (uav#113); designers verify it with `f5 envelope --wake aligned --limit-shift 0.05` and report it.
-- "Proverse yaw" in practice: a roll from the trim to 30° of bank on a 10° elevon step, peak sideslip at most 3°
-  (`rollin_sideslip`, airfoil drag included; its note brackets flow5's Cnp underestimate). A want for now: the
-  3° is a first guess; once Prion and the next variant give a baseline, the human sets the threshold and it
-  becomes a must. The static `proverse_yaw` row stays as a must.
-  Baseline (2026-10-12): Prion reads 27° (27–32° over the Cnp bracket) on this input, reaching 30° in 1.84 s, so
-  3° is the wrong scale for a finless wing on a brisk held step, and the linear model is far outside its range at
-  that size. The human delegated the recalibration to the interviewer (autonomous iteration): the row is used
-  comparatively (lower is better) until a diagnostic shows which levers move it; then input and threshold are
-  reset here with their basis.
-  Calibration (2026-10-13, tools v0.8.1, window continued 3 s after the bank): the tools' Prandtl-D fixture
-  (NASA's finless bell-spanload wing, which flew with proverse yaw and no fin) reads, in flow5, Cnb −0.0004,
-  Cnp −0.042, an unstable Dutch roll, and a 38° peak sideslip on its slowest judgeable roll (15° step, 8.8 s to
-  30°). flow5 is therefore pessimistic for this class of wing: a real wing it calls this bad flew acceptably.
-  Absolute values are not trusted; the anchor is relative. Must: on a gentle roll of about the same duration
-  (1.6° step, ~9 s to 30° on Gannet), peak sideslip no worse than the Prandtl-D's 38° (Gannet reads 7.1°).
-  Want: on the brisk 10° step, ≤ 20° (Gannet 23.7°), to push turn entry further.
+- "Not uncontrollable; damping nice but not required":
+  - short period must not grow (`sp_tdouble` ≥ inf): its cycle is a fraction of a second, too fast for a pilot,
+    and a statically stable flying wing damps it heavily anyway;
+  - Dutch roll may grow, doubling in no less than 4 s (`dr_tdouble`): a cycle of a couple of seconds that a pilot
+    calms with the elevons; requiring damping could be hard without a fin;
+  - phugoid may grow, doubling in no less than 8 s (`ph_tdouble`): a cycle of about 4 s at these speeds, so it
+    doubles over two swings; more lenient because the solver reads gliders' phugoid damping low;
+  - spiral may grow, doubling in no less than 4 s (`spiral_tdouble`).
+- "Re floor 60,000, or at most 55,000": `re_min` over the trim line down to the minimum speed, every strip.
+  55,000 is a must, 60,000 a want, the first thing to give.
+- "Root stalls before the tips" must also survive a ±0.05 error in the sections' Cl max, the adversarial pair
+  shift included (root +0.05, tip −0.05), on the wake aligned with the free stream: XFoil's known Cl-max error is
+  0.02 to 0.07 on comparable sections. The brief block cannot express it yet (uav#113); designers verify it with
+  `f5 envelope --wake aligned --limit-shift 0.05` and report it.
+- "Proverse yaw": the static `proverse_yaw` row (the elevons' yaw is into the roll).
+- "Nice handling, clean turn entry": `rollin_sideslip`, a roll from the trim to 30° of bank on an elevon step,
+  continued 3 s after the bank with the elevons released, peak sideslip, airfoil drag included. Basis of the
+  thresholds: both of the tools' models (flow5 and the lifting-line second model) read NASA's Prandtl-D — a
+  finless bell-spanload wing that flew acceptably — with adverse yaw due to roll rate, near-zero or negative
+  weathercock stiffness and, in flow5, a 38° peak on its slowest judgeable roll (about 9 s to 30°). The models are
+  therefore pessimistic for this class and absolute values are not trusted; the anchor is relative.
+  - must: on a gentle roll of about that duration (a 1.6° step, about 9 s to 30° on this design), peak sideslip
+    no worse than the Prandtl-D's 38°;
+  - want: on a brisk 10° step (about 1.5 s to 30°), peak sideslip ≤ 20°.
 - "Landing / minimum speed 6.5 m/s": `speed_min`, the trim-line speed at the first section's stall onset. It is
   conservative; the plane flies somewhat slower before it actually stalls.
 - "Roughly cruises without trim": elevons within ±1° at 9 m/s, a want. 9 m/s is a reference speed, not a cruise
@@ -162,7 +154,7 @@ bank = 30
 input = { type = "step", deflection = 10 }
 max = 20
 priority = "want"
-why = "brisk turn entry: improve on Gannet's 23.7 deg"
+why = "brisk turn entry: a clean entry on a firm input"
 
 [[require]]
 metric = "span"
