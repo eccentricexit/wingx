@@ -68,6 +68,13 @@ attempt starts at 1.7 m (the human's call: lower spans look unpromising), then m
   that size. The human delegated the recalibration to the interviewer (autonomous iteration): the row is used
   comparatively (lower is better) until a diagnostic shows which levers move it; then input and threshold are
   reset here with their basis.
+  Calibration (2026-10-13, tools v0.8.1, window continued 3 s after the bank): the tools' Prandtl-D fixture
+  (NASA's finless bell-spanload wing, which flew with proverse yaw and no fin) reads, in flow5, Cnb −0.0004,
+  Cnp −0.042, an unstable Dutch roll, and a 38° peak sideslip on its slowest judgeable roll (15° step, 8.8 s to
+  30°). flow5 is therefore pessimistic for this class of wing: a real wing it calls this bad flew acceptably.
+  Absolute values are not trusted; the anchor is relative. Must: on a gentle roll of about the same duration
+  (1.6° step, ~9 s to 30° on Gannet), peak sideslip no worse than the Prandtl-D's 38° (Gannet reads 7.1°).
+  Want: on the brisk 10° step, ≤ 20° (Gannet 23.7°), to push turn entry further.
 - "Landing / minimum speed 6.5 m/s": `speed_min`, the trim-line speed at the first section's stall onset. It is
   conservative; the plane flies somewhat slower before it actually stalls.
 - "Roughly cruises without trim": elevons within ±1° at 9 m/s, a want. 9 m/s is a reference speed, not a cruise
@@ -145,10 +152,17 @@ why = "a divergence slow enough for a pilot to correct"
 [[require]]
 metric = "rollin_sideslip"
 bank = 30
+input = { type = "step", deflection = 1.6 }
+max = 38
+why = "gentle turn entry no worse than NASA's Prandtl-D in the same model (38 deg at a ~9 s roll to 30 deg)"
+
+[[require]]
+metric = "rollin_sideslip"
+bank = 30
 input = { type = "step", deflection = 10 }
-max = 3
+max = 20
 priority = "want"
-why = "rolls into a turn without the nose swinging out; want until a baseline sets the threshold"
+why = "brisk turn entry: improve on Gannet's 23.7 deg"
 
 [[require]]
 metric = "span"
